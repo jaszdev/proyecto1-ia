@@ -2,8 +2,7 @@
 
 public abstract class Individual<T> 
 {
-    public List<T> DNA { get; set; }
-    public int DNA_Length => DNA.Count;
+    public T DNA { get; set; }
     public double Fitness { get; set; }
     
     public abstract Individual<T> Cross(Individual<T> other);
