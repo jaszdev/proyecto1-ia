@@ -122,8 +122,7 @@ MonoBehaviour:
   damage: 1
   damageLayer:
     serializedVersion: 2
-    m_Bits: 256
-  timeToDestroy: 3
+    m_Bits: 1280
 --- !u!58 &1337948124046711898
 CircleCollider2D:
   m_ObjectHideFlags: 0

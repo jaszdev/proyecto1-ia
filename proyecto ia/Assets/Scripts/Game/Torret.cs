@@ -25,7 +25,7 @@ public class Torret : MonoBehaviour
         shootDirection = Vector2.zero;
         foreach (Collider2D collider in colliders)
         {
-            if (collider.gameObject.tag == "enemy")
+            if (collider.gameObject.tag == "enemy" || collider.gameObject.tag == "player")
             {
                 shootDirection = (collider.transform.position - transform.position).normalized;
                 break;

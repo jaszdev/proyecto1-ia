@@ -13,6 +13,8 @@ public class CameraScript : MonoBehaviour
 
     void Update()
     {
+        if (follow == null) return;
+
         Vector3 position = Vector3.Lerp(transform.position, follow.position + offset, lerp);
         position.x = Mathf.Clamp(position.x, -bounds.x / 2f, bounds.x / 2f);
         position.y = Mathf.Clamp(position.y, -bounds.y / 2f, bounds.y / 2f);
