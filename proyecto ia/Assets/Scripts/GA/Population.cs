@@ -8,11 +8,18 @@ public class Population : MonoBehaviour
     public int individualCount;
     public GameObject individual;
 
+    public int foodCount;
+    public GameObject food;
+
     void Start()
     {
         for (int i = 0; i < individualCount; i++)
         {
             Instantiate(individual, RandomPosition(), Quaternion.identity, transform);
+        }
+        for (int i = 0; i < foodCount; i++)
+        {
+            Instantiate(food, RandomPosition(), Quaternion.identity, transform);
         }
     }
     

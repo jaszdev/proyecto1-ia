@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 9128538207997630479}
   - component: {fileID: 9128538207997630478}
-  - component: {fileID: 9128538207997630464}
   - component: {fileID: 9128538207997630465}
   - component: {fileID: 9128538207997630466}
   - component: {fileID: 9128538207997630467}
   - component: {fileID: 848983673317920613}
+  - component: {fileID: 357703512402603598}
   m_Layer: 8
   m_Name: enemy
   m_TagString: enemy
@@ -87,35 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9128538207997630464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9128538207997630477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3916b36273fee5840890817cedba9c37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 100
-  NumDirections: 20
-  framesPerDirection: 20
-  senseRadius: 5
-  senses: []
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  projetileLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  enemiesLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  foodLayer:
-    serializedVersion: 2
-    m_Bits: 2048
 --- !u!50 &9128538207997630465
 Rigidbody2D:
   serializedVersion: 4
@@ -184,3 +155,38 @@ MonoBehaviour:
   damageLayer:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &357703512402603598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9128538207997630477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fe65a17e4b31e4181a1f78376c0e7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 50
+  senseRadius: 10
+  senses: []
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  projetileLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  enemiesLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  foodLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  hunger: 0
+  hungerIncrease: 0.0025
+  drive: 0
+  driveIncrease: 0.01
+  gen: 0
+  reproductionCoolDown: 5
+  coolingDown: 1
+  enemyPrefab: {fileID: 357703512402603598}

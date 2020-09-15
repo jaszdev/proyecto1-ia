@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 public static class GAMath
 {
@@ -7,7 +8,7 @@ public static class GAMath
         float result = 0.0f;
         for (int i = 0; i < coefficients.Length; ++i)
         {
-            result += coefficients[i] * Math.Pow(x, coefficients.Length - i - 1);
+            result += coefficients[i] * Mathf.Pow(x, coefficients.Length - i - 1);
         }
 
         return result;
@@ -20,7 +21,7 @@ public static class GAMath
         else if (x > 45.0f)
             return 1.0f;
         else
-            return 1.0f / (1.0f + Math.Exp(-x));
+            return 1.0f / (1.0f + Mathf.Exp(-x));
 
     }
 }
