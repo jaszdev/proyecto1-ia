@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &942223395
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 942223396}
+  m_Layer: 10
+  m_Name: barrel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &942223396
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942223395}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2396240682265761361}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2396240682265761359
 GameObject:
   m_ObjectHideFlags: 0
@@ -16,6 +46,7 @@ GameObject:
   - component: {fileID: 2396240682265761365}
   - component: {fileID: 2396240682265761366}
   - component: {fileID: 8288337723008104985}
+  - component: {fileID: 2133964582811501319}
   m_Layer: 10
   m_Name: player
   m_TagString: player
@@ -33,7 +64,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 942223396}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -198,3 +230,19 @@ MonoBehaviour:
   transitionColor1: {r: 0.54901963, g: 0.1764706, b: 0.1764706, a: 0.6666667}
   transitionColor2: {r: 0.54901963, g: 0.1764706, b: 0.1764706, a: 0.3137255}
   protecting: 0
+--- !u!114 &2133964582811501319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396240682265761359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20812c0735101446b10aa2a9e97a27e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrel: {fileID: 942223396}
+  projectile: {fileID: 7571863235864203829, guid: 760e78faf9e8c1d459c00b93d1b4efbe,
+    type: 3}
+  waitTime: 1

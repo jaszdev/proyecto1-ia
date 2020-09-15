@@ -9,10 +9,12 @@ internal enum INPUT { KEYBOARD }
 public class PlayerController : MonoBehaviour
 {
     Player player;
+    Shooter shooter;
 
     private void Start()
     {
         player = GetComponent<Player>();
+        shooter = GetComponent<Shooter>();
     }
 
 
@@ -20,9 +22,17 @@ public class PlayerController : MonoBehaviour
     {
         //if (Input.GetButtonDown("Jump")) player.Jump();
         player.Direction = GetDirection(INPUT.KEYBOARD);
+        if (Input.GetButtonDown("Fire1"))
+            shooter?.Shoot(ShootDirection());
     }
 
-    private Vector2 GetDirection(INPUT option)
+    Vector2 ShootDirection()
+    {
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        return (mouseWorldPos - shooter.barrel.position).normalized;
+    }
+
+    Vector2 GetDirection(INPUT option)
     {
         float dx = 0, dy = 0;
         switch (option)

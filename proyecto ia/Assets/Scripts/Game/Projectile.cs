@@ -9,14 +9,14 @@ public class Projectile : MoveRB
     
 
     Transform parent;
-    public void SetParent(Transform parent) => transform.parent = parent;
+    public void SetParent(Transform parent) => this.parent = parent;
 
     protected override void Start()
     {
         base.Start();
         //Destroy(gameObject, timeToDestroy);
     }
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         float waitDestroy = 0.05f;
