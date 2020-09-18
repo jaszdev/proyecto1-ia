@@ -21,6 +21,8 @@ public class EnemyDNA
 
 public class Enemy : MonoBehaviour, I_Individual<EnemyDNA>
 {
+    public static float MutatationRate = 0.05f;
+
 
     // I_Individual
     public EnemyDNA DNA { get; set; }
@@ -36,7 +38,7 @@ public class Enemy : MonoBehaviour, I_Individual<EnemyDNA>
     public LayerMask foodLayer;
 
     int numSenses = 4;
-    int degrees = 3;
+    int degrees = 10;
 
     float[] state;
 
@@ -53,6 +55,10 @@ public class Enemy : MonoBehaviour, I_Individual<EnemyDNA>
 
     public Enemy enemyPrefab;
 
+    public float age = 0f;
+
+    List<Color> colors;
+
     void Start()
     {
         senses = new Vector2[numSenses];
@@ -63,7 +69,7 @@ public class Enemy : MonoBehaviour, I_Individual<EnemyDNA>
         // 2: drive
         // 3: hunger
         //for (int i = 0; i < numSenses; i++) state[i] = 1;
-        state[1] = 0;
+        state[1] = -1;
 
         rb = GetComponent<Rigidbody2D>();
         
@@ -87,7 +93,14 @@ public class Enemy : MonoBehaviour, I_Individual<EnemyDNA>
         }
         GetComponent<SpriteRenderer>().color = DNA.Color;
 
+        Mutate(-10f, 10f, MutatationRate);
 
+        colors = new List<Color>();
+        // 0: player 1: projectile 2: enemies, 3: food
+        colors.Insert(0, Color.red);
+        colors.Insert(1, Color.yellow);
+        colors.Insert(1, Color.green);
+        colors.Insert(1, Color.blue);
     }
 
     public I_Individual<EnemyDNA> Cross(I_Individual<EnemyDNA> other)
@@ -108,16 +121,39 @@ public class Enemy : MonoBehaviour, I_Individual<EnemyDNA>
         return child;
     }
 
-    public void Mutate(double lowerBound, double upperBound, double chancePerGene)
+    public void Mutate(float lowerBound, float upperBound, float chancePerGene)
     {
+        for (int i = 0; i < numSenses; i++)
+        {
+            for (int j = 0; j < degrees + 1; j++)
+            {
+                if (Random.value < chancePerGene)
+                    DNA.coefs[i][j] = MutateStrategy1(lowerBound, upperBound);
+            }
+        }
+    }
+
+    // 1: Cambiar gen totalmente
+    float MutateStrategy1(float lowerBound, float upperBound)
+    {
+        return Random.Range(lowerBound, upperBound);
+    }
+
+    // 2: Cambia gen por un delta determinado
+    float MutateStrategy2(float coeff, float delta)
+    {
+        return coeff + Random.Range(-delta, delta);
     }
 
     void Update()
     {
+        age += Time.deltaTime;
+        // 0: player 1: projectile 2: enemies, 3: food
+
         state[0] = damageable.health;
         hunger += hungerIncrease;
         hunger = Mathf.Clamp(hunger, 0f, 100f);
-        if (hunger > 30) damageable.TakeDamage(0.05f * (hunger / 100f));
+        if (hunger > 30) damageable.TakeDamage(0.05f * (hunger / 100f)); // castigo por pasar hambre
         state[3] = hunger;
         drive += driveIncrease;
         drive = Mathf.Clamp(drive, 0f, 100f);
@@ -132,8 +168,10 @@ public class Enemy : MonoBehaviour, I_Individual<EnemyDNA>
             drive = 0;
             StartCoroutine(CooldownCoroutine());
 
+            // Probabilidad de Reproducirse 
             if (Random.value < 0.5f) return;
 
+            // Reproduccion
             I_Individual<EnemyDNA> i_child = Cross(collision.gameObject.GetComponent<Enemy>());
             Vector3 offset = Random.insideUnitCircle * 2f;
             Enemy child = Instantiate(enemyPrefab, transform.position + offset, Quaternion.identity, null);
@@ -142,8 +180,10 @@ public class Enemy : MonoBehaviour, I_Individual<EnemyDNA>
             child.DNA = i_child.DNA;
 
             print("A child is born!");
-
-            
+            Population.instance.individualCount++;
+            Population.instance.births++;
+            if (child.gen > Population.instance.maxGen) Population.instance.maxGen = child.gen;
+            Population.instance.enemies.Add(child);
         }
     }
 
@@ -175,6 +215,9 @@ public class Enemy : MonoBehaviour, I_Individual<EnemyDNA>
         rb.velocity = GetDirection() * Speed * Time.deltaTime;
     }
 
+
+    // Metodo donde se combina el adn del individuo
+    // y sus sentidos para decidir una direccion  de movimiento.
     Vector2 GetDirection()
     {
         Vector2 direction = new Vector2();
@@ -193,6 +236,12 @@ public class Enemy : MonoBehaviour, I_Individual<EnemyDNA>
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, senseRadius);
+
+        for (int i = 0; i < numSenses; i++)
+        {
+            Gizmos.color = colors[i];
+            Gizmos.DrawLine(transform.position, (Vector2)transform.position + senses[i]);
+        }
     }
 
 

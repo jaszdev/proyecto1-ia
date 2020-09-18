@@ -20,6 +20,12 @@ public class Damageable : MonoBehaviour
         health -= damage;
         if (health <= 0f)
         {
+            if (gameObject.tag == "enemy" && Population.instance != null)
+            {
+                Population.instance.individualCount--;
+                Population.instance.deaths++;
+                Population.instance.enemies.Remove(GetComponent<Enemy>());
+            }
             gameObject.SetActive(false);
         }
         else if (protection != null)

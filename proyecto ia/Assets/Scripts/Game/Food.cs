@@ -11,6 +11,7 @@ public class Food : MonoBehaviour
         if (collision.tag.Equals("enemy"))
         {
             collision.GetComponent<Enemy>().hunger -= value;
+            Population.instance.foodCount--;
             Destroy(gameObject);
         }
     }

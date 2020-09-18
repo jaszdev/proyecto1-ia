@@ -13,11 +13,14 @@ public class GameManager : MonoBehaviour
     //"animation"
     public float respawnWaitTime = 1.5f;
 
+    public float timeScale = 1;
+
     Player player;
     Damageable playerDC;
     void Start()
     {
-        InstantiatePlayer();    
+        InstantiatePlayer();
+        Time.timeScale = timeScale;
     }
 
     void Update()

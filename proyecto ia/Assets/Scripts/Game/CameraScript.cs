@@ -9,6 +9,7 @@ public class CameraScript : MonoBehaviour
     public Vector3 offset;
 
     // from (0, 0)
+    public bool bound;
     public Vector3 bounds;
 
     void Update()
@@ -16,8 +17,11 @@ public class CameraScript : MonoBehaviour
         if (follow == null) return;
 
         Vector3 position = Vector3.Lerp(transform.position, follow.position + offset, lerp);
-        position.x = Mathf.Clamp(position.x, -bounds.x / 2f, bounds.x / 2f);
-        position.y = Mathf.Clamp(position.y, -bounds.y / 2f, bounds.y / 2f);
+        if (bound)
+        {
+            position.x = Mathf.Clamp(position.x, -bounds.x / 2f, bounds.x / 2f);
+            position.y = Mathf.Clamp(position.y, -bounds.y / 2f, bounds.y / 2f);
+        }
         transform.position = position;
     }
 
